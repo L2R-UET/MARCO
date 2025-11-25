@@ -1,0 +1,24 @@
+{
+    "supported_tasks": [
+        "rp",
+        "sr"
+    ],
+    "agents": {
+        "Planner": {
+            "config_path": "config/agents/planner.json"
+        },
+        "Analyst": {
+            "config_path": "config/agents/analyst.json",
+            "prompt_config": "config/prompts/agent_prompt/analyst.json"
+        },
+        "Reflector": {
+            "config_path": "config/agents/reflector_api.json",
+            "prompt_config": "config/prompts/agent_prompt/reflector.json"
+        },
+        "Solver": {
+            "config_path": "config/agents/solver.json"
+        }
+    },
+    "data_prompt": "config/prompts/data_prompt/{task}.json",
+    "max_step": 20
+}

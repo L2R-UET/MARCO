@@ -1,0 +1,34 @@
+{
+    "analyst_base_prompt": {
+        "type": "template",
+        "content": "Analyze {analyse_type} {id} for {task_type}.\n\nCommands: UserInfo[id], ItemInfo[id], UserHistory[id], ItemHistory[id], Finish[result]\nGather comprehensive information, avoid duplicates, then Finish.\n\nTarget: {analyse_type} {id}\n{history}"
+    },
+    "analyst_prompt": {
+        "type": "template",
+        "content": "{analyst_base_prompt}\n\nExamples: UserInfo[123], UserHistory[123], ItemInfo[456], Finish[analysis]\nCommand: "
+    },
+    "analyst_prompt_json": {
+        "type": "template", 
+        "content": "{analyst_base_prompt}\n\nJSON format: {{\"type\":\"CommandName\",\"content\":value}}\nExamples: {{\"type\":\"UserInfo\",\"content\":123}}, {{\"type\":\"Finish\",\"content\":\"User 123 likes anime and action movies\"}}\nIMPORTANT: \n- Generate ONE command at a time, not arrays\n- Never repeat the same command\n- Finish content must be SIMPLE TEXT STRING only\nCommand: "
+    },
+    "analyst_examples": {
+        "type": "raw",
+        "content": "UserInfo[123]; ItemInfo[456]; UserHistory[123]; Finish[User 123 prefers anime]"
+    },
+    "analyst_examples_json": {
+        "type": "raw",
+        "content": "{{\"type\":\"UserInfo\",\"content\":123}}; {{\"type\":\"Finish\",\"content\":\"User 123 likes anime movies and action films\"}}"
+    },
+    "analyst_fewshot": {
+        "type": "raw",
+        "content": "UserInfo[123] → UserHistory[123] → ItemInfo[23] → Finish[User 123 likes anime]"
+    },
+    "analyst_fewshot_json": {
+        "type": "raw",
+        "content": "{{\"type\":\"UserInfo\",\"content\":123}} → {{\"type\":\"UserHistory\",\"content\":123}} → {{\"type\":\"Finish\",\"content\":\"User prefers action and sci-fi movies\"}}"
+    },
+    "analyst_hint": {
+        "type": "raw",
+        "content": "Use Finish to complete analysis."
+    }
+}

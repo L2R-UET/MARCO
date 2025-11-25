@@ -1,0 +1,26 @@
+{
+    "reflect_prompt": {
+        "type": "template",
+        "content": "You are a system evaluator that provides thoughtful analysis of the reasoning process (Analysis → Solving). Focus specifically on the Solver's performance in synthesizing analyst results.\n\nFor the Solver evaluation, consider:\n- **Analysis Phase**: Did the analyst provide comprehensive user and item preferences?\n- **Solver Performance**: Did the solver correctly use analyst insights to rank items? Are highly-preferred items ranked first?\n- **Ranking Quality**: Does the final ranking align with user preferences identified by the analyst?\n- **Reasoning**: Is the solver's ranking decision justified by the analysis data?\n\nIf the solver fails to properly prioritize items based on analyst insights, recommend rerunning the solver phase.\n\n{examples}\nProcess Analysis:\n{input}{scratchpad}\n\nReflection:"
+    },
+    "reflect_prompt_json": {
+        "type": "template", 
+        "content": "Analyze the process (Analysis → Solving, no planner) and evaluate the Solver's performance.\n\nSolver Evaluation Criteria:\n- Did the solver correctly synthesize analyst results into recommendations?\n- Does the final ranking match user preferences from the analysis?\n- Are high-preference items ranked appropriately based on the analyst's findings?\n- Is the ranking reasoning sound and justified by the analysis?\n\nFocus on Solver quality: If analysis is comprehensive but solver ranking is poor, that's a failure.\nIf solver ranking is poor for any reason, suggest rerun to improve results.\n\nReturn ONLY the JSON object with overall correctness assessment - no additional text.\n\n{examples}\nProcess:\n{input}{scratchpad}\n\nJSON Response:"
+    },
+    "reflect_examples_json": {
+        "type": "raw",
+        "content": "Example 1: `{\"correctness\": false, \"reason\": \"Solver's ranking doesn't prioritize items matching user's key preferences from analysis. High-rated genres are not ranked first. Rerun solver to improve ranking.\"}`\n\nExample 2: `{\"correctness\": true, \"reason\": \"Solver correctly ranked items matching user preferences extracted by analyst. High-preference items (Drama, Film-Noir) are prioritized in final ranking.\"}`\n\nExample 3: `{\"correctness\": false, \"reason\": \"Solver ranking fails to reflect analyst's insights about user preferences. Reorder items to place preferred genres/items earlier in the ranking.\"}`"
+    },
+    "reflection_header": {
+        "type": "raw",
+        "content": "Previous reflection(s) identified areas for improvement. Use this feedback to enhance the reasoning process.\n"
+    },
+    "last_trial_header": {
+        "type": "raw",
+        "content": "Below is the complete process from the last trial.\n"
+    },
+    "reflection_last_trial_header": {
+        "type": "raw", 
+        "content": "Previous reflection(s) provide feedback on the analysis and solving phases. Use this analysis to improve future executions.\n"
+    }
+}

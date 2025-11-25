@@ -1,0 +1,23 @@
+{
+    "providers": {
+        "openrouter": {
+            "api_key": "",
+            "base_url": "https://openrouter.ai/api/v1/chat/completions",
+            "model": "google/gemini-2.0-flash-001"
+        },
+        "openai": {
+            "api_key": "",
+            "base_url": "https://api.openai.com/v1/",
+            "model": "gpt-4o-mini"
+        },
+        "gemini": {
+            "api_key": "",
+            "base_url": "https://generativelanguage.googleapis.com/v1beta/models",
+            "model": "gemini-2.0-flash"
+        },
+        "ollama": {
+            "base_url": "http://localhost:11434",
+            "model": "llama3.2:1b"
+        }
+    }
+}

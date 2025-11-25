@@ -1,0 +1,43 @@
+# Python bytecode
+*.pyc
+
+# Logs
+logs/
+log_tensorboard/
+*.log
+nohup.out
+
+# Virtualenv
+venv/
+
+# Build
+build/
+dist/
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+.claude/
+# MacOS
+.DS_Store
+
+# Others
+.github
+data/
+run/
+saved/
+models/
+results/
+ckpts/
+config/api-config.json
+test*
+!marco/*/test*
+train/recommendations/
+train/saved/
+wandb/
+trlx/
+
+cache/
+
+scripts/eval_guide.md

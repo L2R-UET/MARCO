@@ -1,0 +1,20 @@
+{
+  "provider": "opensource",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "json_mode": true,
+  "prompt_config": "config/prompts/agent_prompt/analyst_small_llm.json",
+  "max_turns": 8,
+  "temperature": 0,
+  "top_p": 0.85,
+  "timeout": 300,
+  "tool_config": {
+    "info_retriever": {
+      "type": "info",
+      "config_path": "config/tools/info_database/{dataset}.json"
+    },
+    "interaction_retriever": {
+      "type": "interaction",
+      "config_path": "config/tools/interaction/{dataset}.json"
+    }
+  }
+}

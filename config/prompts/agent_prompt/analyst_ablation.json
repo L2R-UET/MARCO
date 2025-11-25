@@ -1,0 +1,34 @@
+{
+    "analyst_base_prompt": {
+        "type": "template",
+        "content": "You are an Analyst for recommendation tasks. Analyze the user and candidate items for {task_type}.\n\nQuery: {input}\n\nCandidate Items: {candidate_items}\n\nCommands: UserInfo[id], ItemInfo[id], UserHistory[id], ItemHistory[id], Finish[result]\n\nYour task:\n1. Analyze the user to understand their preferences\n2. Analyze ALL candidate items to understand their characteristics\n3. When done, use Finish[analysis] with your complete insights\n\nGather comprehensive information, avoid duplicates, then Finish with your complete analysis.\n{history}"
+    },
+    "analyst_prompt": {
+        "type": "template",
+        "content": "{analyst_base_prompt}\n\nExamples: UserInfo[123], ItemInfo[456], UserHistory[123], Finish[User 123 prefers action movies. Item 456 is an action movie with high ratings. Item 789 is a comedy.]\nCommand: "
+    },
+    "analyst_prompt_json": {
+        "type": "template", 
+        "content": "{analyst_base_prompt}\n\nJSON format: {{\"type\":\"CommandName\",\"content\":value}}\nExamples: {{\"type\":\"UserInfo\",\"content\":123}}, {{\"type\":\"Finish\",\"content\":\"User 123 likes anime and action movies. Item 456 matches user preferences.\"}}\nIMPORTANT: \n- Generate ONE command at a time, not arrays\n- Never repeat the same command\n- Finish content must be SIMPLE TEXT STRING containing your complete analysis of user preferences and all candidate items\nCommand: "
+    },
+    "analyst_examples": {
+        "type": "raw",
+        "content": "UserInfo[123]; ItemInfo[456]; ItemInfo[789]; UserHistory[123]; Finish[User 123 prefers anime and action. Item 456 is action, item 789 is comedy]"
+    },
+    "analyst_examples_json": {
+        "type": "raw",
+        "content": "{{\"type\":\"UserInfo\",\"content\":123}}; {{\"type\":\"ItemInfo\",\"content\":456}}; {{\"type\":\"Finish\",\"content\":\"User 123 likes anime movies and action films. Item 456 is an action movie, item 789 is comedy.\"}}"
+    },
+    "analyst_fewshot": {
+        "type": "raw",
+        "content": "UserInfo[123] → UserHistory[123] → ItemInfo[456] → ItemInfo[789] → Finish[User 123 likes anime. Items analyzed: 456 (action), 789 (comedy)]"
+    },
+    "analyst_fewshot_json": {
+        "type": "raw",
+        "content": "{{\"type\":\"UserInfo\",\"content\":123}} → {{\"type\":\"UserHistory\",\"content\":123}} → {{\"type\":\"ItemInfo\",\"content\":456}} → {{\"type\":\"Finish\",\"content\":\"User prefers action and sci-fi movies. Candidate items: 456 is action, 789 is comedy\"}}"
+    },
+    "analyst_hint": {
+        "type": "raw",
+        "content": "Use Finish to complete analysis with insights about user and ALL candidate items."
+    }
+}
