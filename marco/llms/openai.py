@@ -314,14 +314,30 @@ class OpenAILLM(BaseLLM):
                 f"Token usage estimate ({self.agent_context}): ~{estimated_prompt_tokens} prompt tokens"
             )
 
-            messages = [{"role": "user", "content": prompt}]
+            if isinstance(prompt, list):
+                # If prompt is already a list of messages (dicts), use it directly
+                messages = prompt
+                # If using json mode and the last message is user, append instruction
+                if self.json_mode and messages and messages[-1]['role'] == 'user':
+                    # Load config to get json_instruction if available
+                    api_config = self._load_api_config()
+                    provider_cfg = api_config.get('providers', {}).get('openai', {}) if api_config else {}
+                    json_instruction = provider_cfg.get('json_instruction', 'Return valid JSON only.')
+                    
+                    # Clone to avoid mutating original list if needed, or just append to content
+                    original_content = messages[-1].get('content', '')
+                    messages[-1]['content'] = f"{original_content}\n\n{json_instruction}"
+            else:
+                # Prompt is a string
+                messages = [{"role": "user", "content": prompt}]
+                if self.json_mode:
+                    # Load config to get json_instruction if available
+                    api_config = self._load_api_config()
+                    provider_cfg = api_config.get('providers', {}).get('openai', {}) if api_config else {}
+                    json_instruction = provider_cfg.get('json_instruction', 'Return valid JSON only.')
+                    messages[0]["content"] = f"{prompt}\n\n{json_instruction}"
+
             response_format = {"type": "json_object"} if self.json_mode else None
-            if self.json_mode:
-                # Load config to get json_instruction if available
-                api_config = self._load_api_config()
-                provider_cfg = api_config.get('providers', {}).get('openai', {}) if api_config else {}
-                json_instruction = provider_cfg.get('json_instruction', 'Return valid JSON only.')
-                messages[0]["content"] = f"{prompt}\n\n{json_instruction}"
 
             response = self.execute_with_retry(
                 self._make_api_request,

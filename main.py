@@ -12,8 +12,7 @@ def main():
     init_args, init_extras = init_parser.parse_known_args()
 
     logger.remove()
-    # Terminal output: only show high-level messages (SUCCESS, WARNING, ERROR, CRITICAL)
-    # But allow DEBUG/INFO if explicitly requested via --verbose
+
     terminal_level = init_args.verbose if init_args.verbose in ['DEBUG', 'TRACE'] else 'SUCCESS'
     logger.add(sys.stderr, level=terminal_level)
     os.makedirs('logs', exist_ok=True)
