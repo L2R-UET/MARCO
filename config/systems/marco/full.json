@@ -5,7 +5,8 @@
     ],
     "agents": {
         "Planner": {
-            "config_path": "config/agents/planner.json"
+            "config_path": "config/agents/planner.json",
+            "prompt_config": "config/prompts/agent_prompt/planner.json"
         },
         "Analyst": {
             "config_path": "config/agents/analyst.json",
@@ -16,7 +17,8 @@
             "prompt_config": "config/prompts/agent_prompt/reflector.json"
         },
         "Solver": {
-            "config_path": "config/agents/solver.json"
+            "config_path": "config/agents/solver.json",
+            "prompt_config": "config/prompts/agent_prompt/solver.json"
         }
     },
     "data_prompt": "config/prompts/data_prompt/{task}.json",

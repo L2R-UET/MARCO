@@ -1,6 +1,6 @@
 {
-    "provider": "gemini",
-    "model": "gemini-2.0-flash",
+    "provider": "openrouter",
+    "model": "google/gemini-2.0-flash-001",
     "temperature": 0,
     "max_tokens": 2048,
     "json_mode": false,
